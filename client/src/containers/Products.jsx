@@ -11,6 +11,7 @@ import {
   fetchCategoriesService
 } from "../services/products-api";
 import { useSnackbar } from 'notistack';
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 
 const ProductCard = lazy(() => import('../components/Product/ProductCard'));
 
@@ -37,6 +38,9 @@ const useStyle = makeStyles(theme => ({
 function Products() {
   const classes = useStyle()
   const { enqueueSnackbar } = useSnackbar();
+  const { currentUser, isAuthenticated,
+    isLoading, error: currentUserError,
+    loadCurrentUser } = useCurrentUser();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState(null);
@@ -46,6 +50,16 @@ function Products() {
   const [productsLoading, setProductsLoading] = useState(false);
   const [productsLoaded, setProductsLoaded] = useState(false);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
+
+
+  useEffect(() => {
+    loadCurrentUser()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  console.log(currentUser, isAuthenticated,
+    isLoading, currentUserError,
+    loadCurrentUser)
 
   const fetchProducts = () => {
     setProductsLoading(true);
