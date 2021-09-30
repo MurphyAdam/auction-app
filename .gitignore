@@ -1,0 +1,67 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+**/node_modules
+
+/.pnp
+.pnp.js
+
+# .env
+
+.env
+*.lock
+
+# central-logger logs
+
+nohup.out
+output.log
+
+id_rsa
+.pub
+
+# server static and media
+# static should be collected only on prod
+
+staticfiles
+# Python cache
+__pycache__
+.pyc
+# django and Python
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+
+# .bashrc
+.bashrc
+# testing
+/coverage
+
+# development files that are not used yet
+**/hidden
+
+.eslintcache
+
+# production
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# server media
+
+server/media
+server/static
+
+# server logs
+**/logs
