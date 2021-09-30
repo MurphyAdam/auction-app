@@ -8,6 +8,7 @@ import { SnackbarProvider } from 'notistack';
 
 import NavBar from './components/Layout/Drawer';
 import Routes from './routes';
+import { CurrentUserProvider } from "./contexts/CurrentUserContext"
 import './App.css'
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +53,7 @@ const App: React.FC<any> = (props: any) => {
       },
     });
 
+
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
@@ -59,24 +61,26 @@ const App: React.FC<any> = (props: any) => {
         dense
         maxSnack={3}
       >
-        <Grid component="main" className={classes.root}>
-          <GlobalStyles />
-          <Router>
-            <React.Fragment>
-              <NavBar />
-              <Switch>
-                {Routes.map(route => (
-                  <Route
-                    exact={true}
-                    path={route.path}
-                    key={route.name}
-                    component={route.component} />
-                ))}
-                <Redirect from="*" to="/http-status/404" />
-              </Switch>
-            </React.Fragment>
-          </Router>
-        </Grid>
+        <CurrentUserProvider>
+          <Grid component="main" className={classes.root}>
+            <GlobalStyles />
+            <Router>
+              <React.Fragment>
+                <NavBar />
+                <Switch>
+                  {Routes.map(route => (
+                    <Route
+                      exact={true}
+                      path={route.path}
+                      key={route.name}
+                      component={route.component} />
+                  ))}
+                  <Redirect from="*" to="/http-status/404" />
+                </Switch>
+              </React.Fragment>
+            </Router>
+          </Grid>
+        </CurrentUserProvider>
       </SnackbarProvider>
     </MuiThemeProvider>
   );
