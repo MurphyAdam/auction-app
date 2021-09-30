@@ -5,7 +5,7 @@ from django.core.validators import MinValueValidator
 from products.models import Product
 
 
-class Bids(models.Model):
+class Bid(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='bids',
                              on_delete=models.CASCADE)
     product = models.ForeignKey(
@@ -23,9 +23,9 @@ class Bids(models.Model):
         ordering = ['created']
         verbose_name_plural = "bids"
 
-    def upgrade_version(self):
-        self.version = self.version + 1
-        self.save()
-
     def externl_modification_occured(self, version):
         return self.version == version
+
+    def save(self, *args, **kwargs):
+        self.version = self.version + 1
+        super(Bid, self).save(*args, **kwargs)
