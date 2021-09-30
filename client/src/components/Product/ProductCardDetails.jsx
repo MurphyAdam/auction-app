@@ -58,8 +58,10 @@ export default function ProductCardDetails(props) {
               <Grid item xs={6}>
                 <Typography>
                   Last bid made
-                <br />
-                  {product.last_bid}
+                  <br />
+                  {product?.last_bid ? product.last_bid.amount : 'None yet'
+
+                  }
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -78,7 +80,9 @@ export default function ProductCardDetails(props) {
             Place a Bid
           </Button>
           <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked={false} />} label="Activate the auto-bidding" />
+            <FormControlLabel control={
+              <Checkbox defaultChecked={false} />} label="Activate the auto-bidding"
+            />
           </FormGroup>
         </Box>
       </Grid>
