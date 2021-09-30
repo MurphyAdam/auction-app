@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Bids
+from .models import Bid
 
-admin.site.register(Bids)
+admin.site.register(Bid)
