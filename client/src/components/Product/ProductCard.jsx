@@ -73,7 +73,11 @@ export default function ProductCard(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" color="secondary" >
+          <Button variant="contained"
+            color="secondary"
+            component={RouterLink}
+            to={`/products/${product.slug}`}
+          >
             Bid Now
           </Button>
         </CardActions>
