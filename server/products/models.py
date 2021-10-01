@@ -1,5 +1,7 @@
 from decimal import Decimal
+from django.utils import timezone
 from django.db import models
+from django.db.models.expressions import F
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator
 from rest_framework.reverse import reverse
@@ -29,10 +31,8 @@ class Product(models.Model):
     title = models.CharField(max_length=127)
     slug = models.CharField(max_length=127, blank=True)
     description = models.CharField(max_length=4048)
-    min_bid = models.DecimalField(max_digits=10, decimal_places=2, validators=[
+    min_bid = models.DecimalField(max_digits=10, decimal_places=3, validators=[
         MinValueValidator(Decimal('10.00'))], default=Decimal('10.00'), blank=True)
-    bid = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=False, null=False)
     poster = models.ImageField(
         blank=False, null=False, upload_to="products-images/")
     category = models.ForeignKey(
@@ -41,15 +41,22 @@ class Product(models.Model):
 
     @property
     def last_bid_value(self):
-        return self.bid
+        last_bid = self.get_last_bid()
+        if last_bid:
+            return last_bid.amount
+        return None
+
+    @property
+    def expired(self):
+        return timezone.now() > self.expires_in
 
     def last_bid(self):
         return self.get_last_bid()
 
     def get_last_bid(self):
-        return self.bids.order_by("-created").last()
+        return self.bids.order_by("-id").first()
 
-    def increase_bid(self, bid):
+    def update_bid(self, bid):
         self.last_bid = bid
         self.save()
 
