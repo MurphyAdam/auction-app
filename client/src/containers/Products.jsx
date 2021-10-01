@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy } from 'react'
+import React, { useState, useEffect, useCallback, lazy } from 'react'
 import {
   Box, Grid, Typography, Select,
   InputLabel, MenuItem, Slider,
@@ -12,6 +12,7 @@ import {
 } from "../services/products-api";
 import { useSnackbar } from 'notistack';
 import { useCurrentUser } from "../contexts/CurrentUserContext";
+import { useHistory } from 'react-router-dom';
 
 const ProductCard = lazy(() => import('../components/Product/ProductCard'));
 
@@ -36,14 +37,14 @@ const useStyle = makeStyles(theme => ({
 
 
 function Products() {
-  const classes = useStyle()
+  const classes = useStyle();
+  const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
   const { currentUser, isAuthenticated,
     isLoading, error: currentUserError,
     loadCurrentUser } = useCurrentUser();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState(null);
   const [arrange, setArrange] = useState('popular');
   const [minBid, setMinBid] = useState(8);
   const [error, setError] = useState(false);
@@ -51,21 +52,24 @@ function Products() {
   const [productsLoaded, setProductsLoaded] = useState(false);
   const [categoriesLoading, setCategoriesLoading] = useState(false);
 
+  const redirect = useCallback((where) => history.push(where)
+    , [history]
+  );
 
   useEffect(() => {
-    loadCurrentUser()
+    if (!isAuthenticated) {
+      redirect('/auth/signin');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [isAuthenticated])
 
   console.log(currentUser, isAuthenticated,
-    isLoading, currentUserError,
-    loadCurrentUser)
+    isLoading, currentUserError)
 
   const fetchProducts = () => {
     setProductsLoading(true);
     setProductsLoaded(false);
     const q = {
-      categories: selectedCategories,
       arrange: arrange,
       min_bid: minBid,
     }
@@ -125,7 +129,7 @@ function Products() {
   useEffect(() => {
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [arrange, selectedCategories])
+  }, [arrange])
 
 
   return (
