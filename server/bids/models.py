@@ -1,3 +1,5 @@
+import uuid
+
 from decimal import Decimal
 from django.db import models
 from django.conf import settings
@@ -10,22 +12,30 @@ class Bid(models.Model):
                              on_delete=models.CASCADE)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='bids')
-    amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[
-        MinValueValidator(Decimal('1.00'))], blank=False, null=False)
-    version = models.IntegerField(default=1, blank=True, null=False)
+    amount = models.DecimalField(max_digits=10, decimal_places=3, validators=[
+        MinValueValidator(Decimal('10.00'))], blank=False, null=False)
+    version = models.UUIDField(default=uuid.uuid4(), blank=True, null=False)
+    auto_bid = models.BooleanField(default=False, blank=True, null=False)
     created = models.DateField(auto_now_add=True)
-
-    # we use `version` here to handle concurency
-    # we rely on "Optimistic Locking" where we check if the version we got back from the user
-    # equals the one we currently have
 
     class Meta:
         ordering = ['created']
-        verbose_name_plural = "bids"
 
-    def externl_modification_occured(self, version):
+    # we use `version` here to handle possible concurrency issues
+    # we rely on "Optimistic Locking" where we check if the version we got back from the user
+    # equals the one we currently have
+
+    def update_bid_amount(self, amount):
+        self.amount = amount
+        self.save()
+
+    def update_auto_bid(self, boolean):
+        self.auto_bid = boolean
+        self.save()
+
+    def external_modification_occured(self, version):
         return self.version == version
 
     def save(self, *args, **kwargs):
-        self.version = self.version + 1
+        self.version = uuid.uuid4()
         super(Bid, self).save(*args, **kwargs)
