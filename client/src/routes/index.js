@@ -1,10 +1,16 @@
 import Products from '../containers/Products';
 import Settings from "../containers/Settings";
 import ProductDetails from "../containers/ProductDetails";
+import SignIn from '../components/Auth/SignIn';
 
 
 // these are our app routes and thier respective components
 const Routes = [
+    {
+        path: '/auth/signin',
+        name: 'Sign in',
+        component: SignIn,
+    },
     {
         path: '/',
         name: 'Home',
