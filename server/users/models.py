@@ -1,10 +1,7 @@
-from datetime import datetime
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from .managers import CustomUserManager
 from hashlib import md5
-from django.template.defaultfilters import slugify
 
 
 class User(AbstractUser):
