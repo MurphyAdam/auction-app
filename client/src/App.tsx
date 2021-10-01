@@ -29,7 +29,7 @@ const App: React.FC<any> = (props: any) => {
       palette: {
         type: 'light',
         primary: {
-          main: '#edf6f9',
+          main: '#8ecae6',
         },
         secondary: {
           main: '#3f3356',
