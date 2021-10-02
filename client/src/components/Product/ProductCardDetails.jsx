@@ -101,7 +101,14 @@ export default function ProductCardDetails(props) {
                     Available Until
                 <br />
                     {product.expired ? '[EXPIRED]'
-                      : countdown
+                      : product.auction_started ? countdown
+                        : (
+                          <Typography variant="caption">
+                            [Auctio not opened yet]
+                            <br />
+                            Opens {new Date(product.start_time).toDateString()}
+                          </Typography>
+                        )
                     }
                   </Typography>
                 </Grid>
