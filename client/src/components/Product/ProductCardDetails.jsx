@@ -119,7 +119,7 @@ export default function ProductCardDetails(props) {
               <FormControlLabel control={
                 <Checkbox defaultChecked={autoBid}
                   value={autoBid}
-                  onChange={e => setAutoBid(e.target.value)}
+                  onChange={e => setAutoBid(e.target.checked)}
                   disabled={product.expired} />}
                 label="Activate the auto-bidding"
               />
