@@ -6,9 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import AccountPopover from './AccountPopover';
 import { Link as RouterLink } from 'react-router-dom';
-import { Keyable } from "../../types";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -47,17 +49,13 @@ const useStyles = makeStyles((theme) => ({
 const PrimaryAppBar: React.FC<any> = (props: any) => {
 
   const classes = useStyles();
+  const { isAuthenticated, currentUser } = useCurrentUser();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<HTMLButtonElement | null>(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const handleMobileMenuOpen = (e: React.ChangeEvent<HTMLButtonElement>) => setMobileMoreAnchorEl(e.currentTarget);
+  const handleMobileMenuOpen = (e: any) => setMobileMoreAnchorEl(e.currentTarget);
 
   const handleMobileMenuClose = () => setMobileMoreAnchorEl(null);
-
-
-  const isAuthenticated = true;
-
-  const currentUser: Keyable = {};
 
   const mobileMenuId = 'primary-account-menu-mobile';
   const renderMobileMenu = (
@@ -68,17 +66,19 @@ const PrimaryAppBar: React.FC<any> = (props: any) => {
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMobileMenuOpen}
+      PaperProps={{
+        style: {
+          minWidth: 200,
+        },
+      }}
       onClose={handleMobileMenuClose}>
-
-      <MenuItem key="Home">
-        <Button
-          aria-label="Home"
-          component={RouterLink}
-          to="/"
-          color="inherit"
-          className={classes.AppBarButton}>
-          Home
-        </Button>
+      <MenuItem key="mobile-products" component={RouterLink}
+        to="/">
+        Products
+      </MenuItem>
+      <MenuItem key="mobile-settings" component={RouterLink}
+        to="/settings">
+        Settings
       </MenuItem>
     </Menu >
   );
@@ -99,13 +99,40 @@ const PrimaryAppBar: React.FC<any> = (props: any) => {
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button
-              key="Contact"
-              color="secondary"
-              className={classes.AppBarButton}>
-              Majdi
-            </Button>
-            <AccountPopover />
+            {isAuthenticated
+              ?
+              (
+                <>
+                  <Button
+                    key="Contact"
+                    color="secondary"
+                    className={classes.AppBarButton}>
+                    {currentUser.username}
+                  </Button>
+                  <AccountPopover />
+                </>
+              ) :
+              (
+                <Button
+                  key="Sign-in"
+                  color="secondary"
+                  component={RouterLink}
+                  to="/auth/signin"
+                  className={classes.AppBarButton}>
+                  Sign-in
+                </Button>
+              )
+            }
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              key="show-more"
+              aria-label="show more"
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit">
+              <MoreIcon />
+            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
