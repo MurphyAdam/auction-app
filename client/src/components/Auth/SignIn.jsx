@@ -80,74 +80,76 @@ const SignIn = (props) => {
   const isEnabledToSubmit = email.length >= 4 && password.length >= 4;
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <Grid item xs={12} sm={8} md={12} component={Paper} elevation={4} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar} >
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in to AntiQ
+    <div>
+      <Grid container component="main" className={classes.root}>
+        <Grid item xs={10} sm={8} md={10} component={Paper} elevation={4} square>
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar} >
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in to AntiQ
           </Typography>
-          <form className={classes.form} noValidate>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <TextField
-                  variant="standard"
-                  color="secondary"
-                  margin="normal"
-                  fullWidth
-                  id="email"
-                  label="Email"
-                  name="email"
-                  value={email}
-                  onChange={({ target: { value } }) => setEmail(value)}
-                  autoComplete="email"
-                  autoFocus
-                />
+            <form className={classes.form} noValidate>
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="standard"
+                    color="secondary"
+                    margin="normal"
+                    fullWidth
+                    id="email"
+                    label="Email"
+                    name="email"
+                    value={email}
+                    onChange={({ target: { value } }) => setEmail(value)}
+                    autoComplete="email"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="standard"
+                    color="secondary"
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={({ target: { value } }) => setPassword(value)}
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="standard"
-                  color="secondary"
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={({ target: { value } }) => setPassword(value)}
-                  id="password"
-                  autoComplete="current-password"
-                />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                onClick={performLogin}
+                disabled={!isEnabledToSubmit || isLoading}
+                color="secondary"
+                className={classes.submit}
+              >
+                {!isLoading
+                  ? "Sign in" : "Signing in..."
+                }
+              </Button>
+              <Grid container>
+                <Grid item xs={12} sm={8} md={12}>
+                  <Typography
+                    style={{ color: "black", }}
+                    onClick={() => setShowPassword(!showPassword)}
+                    variant="body2">
+                    {showPassword ? "Hide password" : "Show password"}
+                  </Typography>
+                </Grid>
               </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={performLogin}
-              disabled={!isEnabledToSubmit || isLoading}
-              color="secondary"
-              className={classes.submit}
-            >
-              {!isLoading
-                ? "Sign in" : "Signing in..."
-              }
-            </Button>
-            <Grid container>
-              <Grid item xs={12} sm={8} md={12}>
-                <Typography
-                  style={{ color: "black", }}
-                  onClick={() => setShowPassword(!showPassword)}
-                  variant="body2">
-                  {showPassword ? "Hide password" : "Show password"}
-                </Typography>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }
 
