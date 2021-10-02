@@ -97,8 +97,8 @@ user1 and user2
 
 ### Branches
 
-There exist two branches: `master`, and `heroku`.
-The only difference bewteen the two branches is that the `heroku` one contains files 
+There exist two branches before the merge: `master`, and `heroku-v2`.
+The only difference bewteen the two branches is that the `heroku-v2` one contains files 
 for deploying this code as an instance to Heroku. An instance has already been deployed and 
 can be accessed here: https://antiq-auction.herokuapp.com/ 
 
