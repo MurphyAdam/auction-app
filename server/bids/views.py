@@ -18,5 +18,5 @@ class BidViewSet(viewsets.ModelViewSet):
         product_id = data.get('product_id', None)
         product = Product.objects.get(id=product_id)
         bid = Bid.objects.filter(
-            user=self.request.user, product=product).first()
+            user=self.request.user, product=product_id).last()
         serializer.save(user=self.request.user, product=product, bid=bid)
