@@ -8,8 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'max_bid_amount',
-                  'bid_alert_trigger', 'max_bid_amount_reached', 'links')
+        fields = ('id', 'username', 'max_bid_amount_reached',
+                  'bid_alert_trigger', 'original_max_bid_amount', 'left_max_bid_amount', 'links')
 
 
 class CustomRegisterSerializer(RegisterSerializer):
