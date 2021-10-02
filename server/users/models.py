@@ -24,7 +24,7 @@ class User(AbstractUser):
                                               default=Decimal('120.00'),
                                               decimal_places=3, blank=False, null=False)
     bid_alert_trigger = models.FloatField(
-        default=90.0, blank=False, null=False)
+        default=30.0, blank=False, null=False)
     objects = CustomUserManager()
 
     def decrease_bid_amount_funds(self):
@@ -40,7 +40,8 @@ class User(AbstractUser):
 
     @property
     def max_bid_amount_reached(self):
-        perc = (self.left_max_bid_amount / self.original_max_bid_amount) * 100
+        used_bid_amount = self.original_max_bid_amount - self.left_max_bid_amount
+        perc = (used_bid_amount / self.original_max_bid_amount) * 100
         return perc >= self.bid_alert_trigger or self.left_max_bid_amount == 0
 
     @property
