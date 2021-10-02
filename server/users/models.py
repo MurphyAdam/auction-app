@@ -17,27 +17,31 @@ class User(AbstractUser):
     funds = models.DecimalField(max_digits=10,
                                 default=Decimal('200.00'),
                                 decimal_places=3, blank=False, null=False)
-    max_bid_amount = models.DecimalField(max_digits=10,
-                                         default=Decimal('120.00'),
-                                         decimal_places=3, blank=False, null=False)
+    original_max_bid_amount = models.DecimalField(max_digits=10,
+                                                  default=Decimal('120.00'),
+                                                  decimal_places=3, blank=False, null=False)
+    left_max_bid_amount = models.DecimalField(max_digits=10,
+                                              default=Decimal('120.00'),
+                                              decimal_places=3, blank=False, null=False)
     bid_alert_trigger = models.FloatField(
         default=90.0, blank=False, null=False)
     objects = CustomUserManager()
 
     def decrease_bid_amount_funds(self):
-        if self.max_bid_amount > 0:
-            self.max_bid_amount -= 1
+        if self.left_max_bid_amount > 0:
+            self.left_max_bid_amount -= 1
             self.save()
 
     def update_settings(self, max_bid_amount, bid_alert_trigger):
         self.max_bid_amount = max_bid_amount
+        self.left_max_bid_amount = max_bid_amount
         self.bid_alert_trigger = bid_alert_trigger
         self.save()
 
     @property
     def max_bid_amount_reached(self):
-        perc = (self.bid_alert_trigger / 100) * float(self.max_bid_amount)
-        return perc >= self.bid_alert_trigger or self.max_bid_amount == 0
+        perc = (self.left_max_bid_amount / self.original_max_bid_amount) * 100
+        return perc >= self.bid_alert_trigger or self.left_max_bid_amount == 0
 
     @property
     def links(self):
