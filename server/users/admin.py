@@ -18,10 +18,18 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
         (
-            'Max Bid Amount',
+            'Original Max Bid Amount',
             {
                 'fields': (
-                    'max_bid_amount',
+                    'original_max_bid_amount',
+                ),
+            },
+        ),
+        (
+            'Left Max Bid Amount',
+            {
+                'fields': (
+                    'left_max_bid_amount',
                 ),
             },
         ),
