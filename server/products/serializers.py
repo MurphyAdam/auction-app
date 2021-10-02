@@ -20,4 +20,6 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ('id', 'title', 'slug', 'description',
                   'poster', 'category', 'min_bid',
-                  'last_bid', 'last_bid_value', 'expires_in', 'expired', 'user')
+                  'last_bid', 'last_bid_value', 'start_time',
+                  'expires_in', 'auction_started',
+                  'expired', 'user')
