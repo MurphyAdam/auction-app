@@ -40,9 +40,7 @@ function Products() {
   const classes = useStyle();
   const history = useHistory();
   const { enqueueSnackbar } = useSnackbar();
-  const { currentUser, isAuthenticated,
-    isLoading, error: currentUserError,
-    loadCurrentUser } = useCurrentUser();
+  const { isAuthenticated } = useCurrentUser();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [arrange, setArrange] = useState('popular');
@@ -62,9 +60,6 @@ function Products() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
-
-  console.log(currentUser, isAuthenticated,
-    isLoading, currentUserError)
 
   const fetchProducts = () => {
     setProductsLoading(true);
@@ -136,7 +131,7 @@ function Products() {
     <div className={classes.root}>
       <Box pt={3}>
         <Grid container spacing={2}>
-          <Grid item xs={3} md={3}>
+          <Grid item xs={12} md={3}>
             <Typography className={classes.filtersTypo}>
               Filters
             </Typography>
