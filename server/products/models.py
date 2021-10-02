@@ -37,6 +37,7 @@ class Product(models.Model):
         blank=False, null=False, upload_to="products-images/")
     category = models.ForeignKey(
         'Category', null=True, blank=True, on_delete=models.CASCADE)
+    start_time = models.DateTimeField(null=True, blank=True)
     expires_in = models.DateTimeField(null=True, blank=True)
 
     @property
@@ -49,6 +50,10 @@ class Product(models.Model):
     @property
     def expired(self):
         return timezone.now() > self.expires_in
+
+    @property
+    def auction_started(self):
+        return timezone.now() > self.start_time
 
     def last_bid(self):
         return self.get_last_bid()
