@@ -48,7 +48,7 @@ export default function Settings(props) {
       redirect('/auth/signin');
     }
     else {
-      setBidAmount(currentUser.max_bid_amount);
+      setBidAmount(currentUser.left_max_bid_amount);
       setBidPercentAlert(currentUser.bid_alert_trigger);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
