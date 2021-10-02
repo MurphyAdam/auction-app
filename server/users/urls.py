@@ -3,11 +3,13 @@ from users.views import UserViewSet
 from rest_framework.urlpatterns import format_suffix_patterns
 
 user_list = UserViewSet.as_view({
-    'get': 'list'
+    'get': 'list',
+    'put': 'update',
 })
 
 user_detail = UserViewSet.as_view({
-    'get': 'retrieve'
+    'get': 'retrieve',
+    'put': 'update',
 })
 
 urlpatterns = [
