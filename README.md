@@ -1,7 +1,8 @@
 # This is a simple auction app meant for Scopic as a test task
 
 This project is split into two parts: Front-end (client) and back-end (server)
-The docs below shall help you get started to run the application on your local machine, or deploy it. 
+The docs below shall help you get started to run the application on your local machine, or deploy it.
+Test login credentials below  
 
 ## project stack
 
@@ -81,7 +82,17 @@ Starting development server at http://127.0.0.1:8000/
 For ease of running this project for the purpose of what it is - test task - you can avoid installing and 
 running the client server and go ahead and check the build which is served by your Django at http://127.0.0.1:8000. For the sole purpose of this task, the build is committed to GIT in a single commit. Please also notice that media images of products, and the SQLite db file are committed for the same purpose.
 
-**Please if you have any questions, do not hesitate to reach to me at elm.majidi@gmail.com :)**
+### Test credentials
+We have two regular users (and one admin):
+user1 and user2
+
+user1: 
+    email: user1@gmail.com
+    password: 1234abcd@
+
+user2:
+    email: user2@gmail.com
+    password: 1234abcd@
 
 ### Branches
 
@@ -107,3 +118,6 @@ We can have implement a few improvments, given some addional time. Some of which
 6. Use a message broker for placing bids
 7. Use args and parameters to fetch products
 8. Load currenct user on every page reload so a user dose not have to re-login.
+
+
+**Please if you have any questions, do not hesitate to reach to me at elm.majidi@gmail.com :)**
