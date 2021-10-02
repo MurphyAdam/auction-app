@@ -78,7 +78,8 @@ Django version 3.2.7, using settings 'auction_server.settings'
 Starting development server at http://127.0.0.1:8000/
 ```
 
-#### serve the build
+#### Serve the build
+
 For ease of running this project for the purpose of what it is - test task - you can avoid installing and 
 running the client server and go ahead and check the build which is served by your Django at http://127.0.0.1:8000. For the sole purpose of this task, the build is committed to GIT in a single commit. Please also notice that media images of products, and the SQLite db file are committed for the same purpose.
 
@@ -86,13 +87,13 @@ running the client server and go ahead and check the build which is served by yo
 We have two regular users (and one admin):
 user1 and user2
 
-user1: 
-    email: user1@gmail.com
-    password: 1234abcd@
+- user1: 
+    - email: user1@gmail.com
+    - password: 1234abcd@
 
-user2:
-    email: user2@gmail.com
-    password: 1234abcd@
+- user2:
+    - email: user2@gmail.com
+    - password: 1234abcd@
 
 ### Branches
 
@@ -101,19 +102,19 @@ The only difference bewteen the two branches is that the `heroku` one contains f
 for deploying this code as an instance to Heroku. An instance has already been deployed and 
 can be accessed here: https://antiq-auction.herokuapp.com/ 
 
-Note on Heroku instance: Since we are using an SQLite db, the changed we make to the database on the Heroku instance will be lost after some time, this is because Heroku is using an ephemeral filesystem. 
-We use a PostgreSQL server for our Heroku instance instead of the sqlite file.
+Note on Heroku instance: Since we are using an SQLite db, the changes we make to the database on the Heroku instance will be lost after some time, this is because Heroku is using an ephemeral filesystem. 
+We use a PostgreSQL server for our Heroku instance instead of the sqlite file to preserve the changes.
 
 Please checkout the heroku branch.
 
 ### Improvments
 
-We can have implement a few improvments, given some addional time. Some of which would be:
+We can implement a few improvements, given some additional time. Some of which would be:
 
 1. Database server such as PostgreSQL instead of an SQLite file
 2. Real-time updates of the bids system using websockets
 3. Global state management for the front-end with Redux
-4. Extend the use TypeScript throughtout the front-end codebase
+4. Extend the use of TypeScript throughtout the front-end codebase
 5. Tests on the client and server side
 6. Use a message broker for placing bids
 7. Use args and parameters to fetch products
