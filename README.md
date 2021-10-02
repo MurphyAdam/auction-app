@@ -21,7 +21,7 @@ Please skip the Client part below
 
 ### Client
 
-If you would like to run the client server, please make sure you have the latest Node version >= 16,
+If you would like to run the client server, please make sure you have the latest Node.js version >= 16,
 alongside a package manager such as `yarn` or `npm` (this project uses yarn), and follow the steps below:
 
 1. in the root directory of `client` where the package.json file is located, use your favourite package 
@@ -79,9 +79,21 @@ Starting development server at http://127.0.0.1:8000/
 
 #### serve the build
 For ease of running this project for the purpose of what it is - test task - you can avoid installing and 
-running the client server and go ahead and check the build which is served by your Django at http://127.0.0.1:8000. For the sole purpose of this task, the build is committed to GIT in a single commit.
+running the client server and go ahead and check the build which is served by your Django at http://127.0.0.1:8000. For the sole purpose of this task, the build is committed to GIT in a single commit. Please also notice that media images of products, and the SQLite db file are committed for the same purpose.
 
 **Please if you have any questions, do not hesitate to reach to me at elm.majidi@gmail.com :)**
+
+### Branches
+
+There exist two branches: `master`, and `heroku`.
+The only difference bewteen the two branches is that the `heroku` one contains files 
+for deploying this code as an instance to Heroku. An instance has already been deployed and 
+can be accessed here: https://antiq-auction.herokuapp.com/ 
+
+Note on Heroku instance: Since we are using an SQLite db, the changed we make to the database on the Heroku instance will be lost after some time, this is because Heroku is using an ephemeral filesystem. 
+We use a PostgreSQL server for our Heroku instance instead of the sqlite file.
+
+Please checkout the heroku branch.
 
 ### Improvments
 
