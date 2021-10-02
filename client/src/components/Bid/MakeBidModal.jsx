@@ -15,11 +15,10 @@ import { useSnackbar } from 'notistack';
 export default function MakeBidModal(props) {
 
   const { open, setOpen, product, minBid, autoBid } = props;
+  const amountNeeded = parseInt((product.last_bid?.amount ? product.last_bid.amount : minBid)) + 1;
   const { enqueueSnackbar } = useSnackbar();
-  const [bid, setBid] = useState(minBid);
+  const [bid, setBid] = useState(amountNeeded);
   const [isLoading, setIsLoading] = useState(false);
-
-  const amountNeeded = product.last_bid?.amount ? product.last_bid.amount : minBid;
 
   const handleClose = () => {
     setOpen(false);
