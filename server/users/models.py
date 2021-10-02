@@ -15,10 +15,10 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
     funds = models.DecimalField(max_digits=10,
-                                default=Decimal('1000000.00'),
+                                default=Decimal('200.00'),
                                 decimal_places=3, blank=False, null=False)
     max_bid_amount = models.DecimalField(max_digits=10,
-                                         default=Decimal('1.00'),
+                                         default=Decimal('120.00'),
                                          decimal_places=3, blank=False, null=False)
     bid_alert_trigger = models.FloatField(
         default=90.0, blank=False, null=False)
