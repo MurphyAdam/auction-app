@@ -54,7 +54,7 @@ class Product(models.Model):
         return self.get_last_bid()
 
     def get_last_bid(self):
-        return self.bids.order_by("-id").first()
+        return self.bids.order_by("updated").last()
 
     def update_bid(self, bid):
         self.last_bid = bid
