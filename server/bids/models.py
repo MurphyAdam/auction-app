@@ -53,7 +53,7 @@ class Bid(models.Model):
 @receiver(post_save, sender=Bid, dispatch_uid="auto_bid_bot")
 def auto_place_bid(sender, instance, **kwargs):
     auto_bids = Bid.objects.filter(
-        auto_bid=True, product=instance.product.id, last_bid_origin='native')
+        auto_bid=True, product=instance.product.id)
     outbid_amount = instance.amount + 1
     for bid in auto_bids:
         """
@@ -62,13 +62,17 @@ def auto_place_bid(sender, instance, **kwargs):
             if bid.amount < instance.amount
             we don't touch the instances 
         """
-        if bid.amount < instance.amount:
+        if not bid.user.max_bid_amount_reached:
             bid.amount = outbid_amount
-            # we set last_bid_origin to 'bot'
-            # to avoid having differrent bots outbid each other infinitly
-            bid.last_bid_origin = 'bot'
+            """
+                # we set last_bid_origin to 'bot'
+                # to avoid having differrent bots outbid each other infinitly
+                bid.last_bid_origin = 'bot'
+                """
             # outbid the last bid by 1
             outbid_amount += 1
+            # decrease user max bid amount
+            bid.user.decrease_bid_amount_funds()
             bid.save()
 
 

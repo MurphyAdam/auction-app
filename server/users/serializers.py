@@ -1,7 +1,6 @@
 from rest_auth.registration.serializers import RegisterSerializer
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-
 from .models import User
 
 
@@ -9,7 +8,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'links')
+        fields = ('id', 'username', 'max_bid_amount',
+                  'bid_alert_trigger', 'max_bid_amount_reached', 'links')
 
 
 class CustomRegisterSerializer(RegisterSerializer):
