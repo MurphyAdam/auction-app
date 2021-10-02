@@ -6,7 +6,6 @@
 
 /.pnp
 .pnp.js
-
 # .env
 
 .env
@@ -33,7 +32,6 @@ __pycache__
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
 
 # .bashrc
 .bashrc
@@ -60,7 +58,6 @@ yarn-error.log*
 
 # server media
 
-server/media
 server/static
 
 # server logs
