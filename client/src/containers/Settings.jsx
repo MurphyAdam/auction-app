@@ -58,7 +58,7 @@ export default function Settings(props) {
     setIsLoading(true)
     updateSettingsService(
       {
-        max_bid_amount: bidAmount,
+        original_max_bid_amount: bidAmount,
         bid_alert_trigger_level: bidPercentAlert,
         user_id: currentUser.id
       }
