@@ -104,8 +104,10 @@ const PrimaryAppBar: React.FC<any> = (props: any) => {
               (
                 <>
                   <Button
-                    key="Contact"
+                    key="username-settings"
                     color="secondary"
+                    component={RouterLink}
+                    to="/settings"
                     className={classes.AppBarButton}>
                     {currentUser.username}
                   </Button>
