@@ -32,9 +32,9 @@ class User(AbstractUser):
             self.left_max_bid_amount -= 1
             self.save()
 
-    def update_settings(self, max_bid_amount, bid_alert_trigger):
-        self.max_bid_amount = max_bid_amount
-        self.left_max_bid_amount = max_bid_amount
+    def update_settings(self, original_max_bid_amount, bid_alert_trigger):
+        self.original_max_bid_amount = original_max_bid_amount
+        self.left_max_bid_amount = original_max_bid_amount
         self.bid_alert_trigger = bid_alert_trigger
         self.save()
 
