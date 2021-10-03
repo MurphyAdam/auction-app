@@ -17,12 +17,13 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['PUT'], detail=True)
     def update(self, request, *args, **kwargs):
-        max_bid_amount = request.data.get('max_bid_amount', None)
+        original_max_bid_amount = request.data.get(
+            'original_max_bid_amount', None)
         bid_alert_trigger_level = request.data.get(
             'bid_alert_trigger_level', None)
         user = request.user
-        if max_bid_amount is not None:
-            if float(max_bid_amount) > user.funds:
+        if original_max_bid_amount is not None:
+            if float(original_max_bid_amount) > user.funds:
                 return Response({'message': "Max bid amount cannot be greater than your funds"},
                                 status=400)
         if bid_alert_trigger_level is not None:
@@ -30,5 +31,5 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
             if bid_alert_trigger_level < 0 or bid_alert_trigger_level > 100:
                 return Response({'message': "Bid Alert notification Level should be between 0 and 100"},
                                 status=400)
-        user.update_settings(max_bid_amount, bid_alert_trigger_level)
+        user.update_settings(original_max_bid_amount, bid_alert_trigger_level)
         return Response({'message': "Settings saved"}, status=200)
