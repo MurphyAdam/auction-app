@@ -63,17 +63,21 @@ def auto_place_bid(sender, instance, **kwargs):
             we don't touch the instances 
         """
         if not bid.user.max_bid_amount_reached:
-            bid.amount = outbid_amount
-            """
-                # we set last_bid_origin to 'bot'
-                # to avoid having differrent bots outbid each other infinitly
-                bid.last_bid_origin = 'bot'
+            if bid.version != instance.version and bid.amount <= instance.amount:
+                # we only outbid this bid if the bid
+                # amount is less than the instance and the
+                # bid is not the same object instance we are checking
+                bid.amount = outbid_amount
                 """
-            # outbid the last bid by 1
-            outbid_amount += 1
-            # decrease user max bid amount
-            bid.user.decrease_bid_amount_funds()
-            bid.save()
+                    # we set last_bid_origin to 'bot'
+                    # to avoid having differrent bots outbid each other infinitly
+                    bid.last_bid_origin = 'bot'
+                    """
+                # outbid the last bid by 1
+                outbid_amount += 1
+                # decrease user max bid amount
+                bid.user.decrease_bid_amount_funds()
+                bid.save()
 
 
 post_save.connect(auto_place_bid, sender=Bid)
