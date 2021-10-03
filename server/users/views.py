@@ -24,12 +24,19 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         user = request.user
         if original_max_bid_amount is not None:
             if float(original_max_bid_amount) > user.funds:
-                return Response({'message': "Max bid amount cannot be greater than your funds"},
-                                status=400)
+                return Response(
+                    {'message': f"Max bid amount cannot be greater than your funds of {user.funds}"},
+                    status=400)
+        else:
+            return Response({'message': "Max bid amount is not specified"},
+                            status=400)
         if bid_alert_trigger_level is not None:
             bid_alert_trigger_level = float(bid_alert_trigger_level)
             if bid_alert_trigger_level < 0 or bid_alert_trigger_level > 100:
                 return Response({'message': "Bid Alert notification Level should be between 0 and 100"},
                                 status=400)
+        else:
+            return Response({'message': "Bid Alert notification Level is not specified"},
+                            status=400)
         user.update_settings(original_max_bid_amount, bid_alert_trigger_level)
         return Response({'message': "Settings saved"}, status=200)
